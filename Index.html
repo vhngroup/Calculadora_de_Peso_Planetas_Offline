@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Física Intergaláctica Offline</title>
+    <style>
+        :root {
+            --space-black: #0d1117;
+            --science-blue: #58a6ff;
+            --text-gray: #8b949e;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--space-black);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #161b22;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #30363d;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 2px solid var(--science-blue);
+            background: #0d1117;
+            color: white;
+            width: 120px;
+            margin: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #21262d;
+            padding: 15px;
+            border-radius: 10px;
+            border-bottom: 4px solid var(--science-blue);
+            text-align: left;
+        }
+
+        .planet-name {
+            color: var(--science-blue);
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .unit-group {
+            margin-top: 10px;
+        }
+
+        .val-n {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #f0883e;
+        }
+
+        .val-kg {
+            font-size: 1rem;
+            color: #cfd8dc;
+        }
+
+        .factor {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Báscula de Física Espacial</h1>
+        <p>Ingresa tu <strong>masa</strong> en la Tierra (kg):</p>
+        <input type="number" id="userMass" placeholder="Ej: 70" oninput="calculate()">
+
+        <div class="grid" id="display"></div>
+    </div>
+
+    <script>
+        const data = [
+            { name: "Sol", g: 274 },
+            { name: "Mercurio", g: 3.7 },
+            { name: "Venus", g: 8.87 },
+            { name: "Tierra", g: 9.81 },
+            { name: "Luna", g: 1.62 },
+            { name: "Marte", g: 3.71 },
+            { name: "Júpiter", g: 24.79 },
+            { name: "Saturno", g: 10.44 },
+            { name: "Urano", g: 8.69 },
+            { name: "Neptuno", g: 11.15 },
+            { name: "Plutón", g: 0.62 }
+        ];
+
+        function calculate() {
+            const mass = document.getElementById('userMass').value;
+            const display = document.getElementById('display');
+            display.innerHTML = '';
+
+            if (mass > 0) {
+                data.forEach(p => {
+                    const weightN = mass * p.g; // Peso real en Newtons
+                    const equivKg = weightN / 9.81; // Sensación de peso en Kg
+                    const factor = p.g / 9.81;
+
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <span class="planet-name">${p.name}</span>
+                        <div class="unit-group">
+                            <div class="val-n">${weightN.toFixed(1)} N <small style="font-size:0.6em; color:#888;">(Peso Real)</small></div>
+                            <div class="val-kg">${equivKg.toFixed(1)} kg <small style="font-size:0.6em; color:#888;">(Equivalente)</small></div>
+                        </div>
+                        <span class="factor">Gravedad: ${p.g} m/s² 
+                        (${factor >= 1 ? 'x' + factor.toFixed(2) : '÷' + (1 / factor).toFixed(2)})</span>
+                    `;
+                    display.appendChild(card);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+<!-- Proyecto creado por Victor Noguera para los niños de 5C. Calculadora de peso en diferentes planetas offline-->
