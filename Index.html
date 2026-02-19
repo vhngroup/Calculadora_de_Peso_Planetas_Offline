@@ -128,7 +128,8 @@
                         <span class="planet-name">${p.name}</span>
                         <div class="unit-group">
                             <div class="val-n">${weightN.toFixed(1)} N <small style="font-size:0.6em; color:#888;">(Peso Real)</small></div>
-                            <div class="val-kg">${equivKg.toFixed(1)} kg <small style="font-size:0.6em; color:#888;">(Equivalente)</small></div>
+                            <!-- Removemos el equivalente -->
+                        <div class="val-kg">${mass} kg <small style="font-size:0.6em; color:#888;">(Masa)</small></div>
                         </div>
                         <span class="factor">Gravedad: ${p.g} m/s² 
                         (${factor >= 1 ? 'x' + factor.toFixed(2) : '÷' + (1 / factor).toFixed(2)})</span>
@@ -147,4 +148,4 @@
 
 
 
-<!-- Proyecto creado por Victor Noguera para los niños de 5C. Calculadora de peso en diferentes planetas offline-->
+<!-- Proyecto creado por Victor Noguera para los niños de 5C de la Profesora Johana Mendoza. Calculadora de peso en diferentes planetas offline-->
